@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Better HelpScout Auto Reply: Accounts & Billing</title>
+    <style>
+      .font-20 {
+        font-size: 20px;
+      }
+
+      .font-24 {
+        font-size: 24px;
+      }
+
+      .mb-10p {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body style="margin: 5%">
+    <h1>Better HelpScout Auto Reply: Accounts & Billing</h1>
+    <ul>
+      <li class="font-20 mb-10p">
+        We are working on a new system that will replace our existing HelpScout
+        auto-reply (the automatic message a customer gets when sending us a
+        ticket that tells them our support hours & links to docs) to be able to
+        give customers a more contextualized auto-reply. Currently, this message
+        is identical for all customers and types of tickets we get. Starting
+        with the tickets we get for accounts and billing, we will have the
+        system select from a pre-written selection of hard-coded responses, and
+        select and send the one that's closest to the ticket type, as opposed to
+        the one HelpScout currently sends to every customer.
+      </li>
+      <li class="font-20 mb-10p">
+        When rating this accounts and billing ticket, please answer if this
+        ticket has been correctly identified as an account and billing ticket.
+        These types of tickets include but are not limited to: lost password,
+        can't access my account, refund request, cancellation request, double
+        charged, discount request, etc.
+      </li>
+      <li class="font-20 mb-10p">
+        Please also rate if the selected pre-approved auto-reply is appropriate
+        for the ticket.
+        <b
+          ><i
+            >The selected auto-reply may differ from the final response sent by
+            the customer support team member.</i
+          ></b
+        >
+      </li>
+      <li class="font-20 mb-10p">
+        You will then answer if the auto-reply selected is the correct one for
+        this type of ticket.
+      </li>
+      <li class="font-20 mb-10p">
+        Please remember, because this is designed to replace the HelpScout Auto
+        Reply which is currently identical for ALL emails received, the
+        auto-replies it's choosing from WILL NOT be customized to the customer.
+        The goal is to simply try to make the default auto-reply a touch more
+        customized based on the type of ticket. Simply answer if the ticket is a
+        refund request, did it pick the refund request auto-reply.
+      </li>
+    </ul>
+
+    <p class="font-20">For more clarity, scroll down below for an examples</p>
+
+    <form id="feedbackForm" style="border: 1px solid black; padding: 1%">
+      <label for="skippedCorrectly">
+        <h3 class="font-20">Is this ticket an accounts or billing ticket?</h3>
+      </label>
+
+      <input
+        type="radio"
+        id="skippedCorrectlyYes"
+        name="skipRating"
+        value="Correct"
+        required
+      />
+      <label for="skippedCorrectlyYes" class="font-20">Yes</label><br />
+      <input
+        type="radio"
+        id="skippedCorrectlyNo"
+        name="skipRating"
+        value="Incorrect"
+        required
+      />
+      <label for="skippedCorrectlyNo" class="font-20">No</label><br />
+
+      <label for="savedAnswer">
+        <h3 class="font-20">
+          Is the selected auto-reply the correct one for this type of ticket
+          (example: did it select the refund auto-reply template for a refund
+          ticket)?
+        </h3>
+      </label>
+      <input
+        type="radio"
+        id="savedReplyRatingYes"
+        name="savedReplyRating"
+        value="Correct"
+        required
+      />
+      <label for="savedReplyRatingYes" class="font-20">Yes</label><br />
+      <input
+        type="radio"
+        id="savedReplyRatingNo"
+        name="savedReplyRating"
+        value="Incorrect"
+        required
+      />
+      <label for="savedReplyRatingNo" class="font-20">No</label><br /><br />
+
+      <div id="commentsContainer">
+        <label for="comments" class="font-20"
+          >If you have selected no for either of the question, please let us
+          know why:</label
+        ><br />
+        <textarea
+          id="comments"
+          name="comments"
+          maxlength="16777215"
+          minlength="30"
+          style="width: 50%"
+          required
+        ></textarea
+        ><br />
+      </div>
+
+      <input type="hidden" id="cfid" name="cfid" /><br />
+      <button type="submit" class="font-20">Submit</button><br /><br />
+
+      <label id="question" class="font-20">Question:</label><br /><br />
+      <hr />
+      <label id="response" class="font-20">Auto-Reply:</label><br /><br />
+    </form>
+
+    <hr />
+
+    <h2>Examples of SA Intelligent Auto-Reply:</h2>
+
+    <h4 class="font-20">
+      Appropriate system response (column 2). These should be rated 'Yes' for
+      question 2, eventhough it differs from the final response sent by the
+      customer support team member (column 3):
+    </h4>
+    <table border="2 black solid">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>SA Intelligent Auto-Reply</th>
+          <th>Customer Support Team Member Response</th>
+          <th>Reason for Skipping</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <p>Hi,</p>
+            <p>
+              StoryFair is closing it's doors (we are no longer active). We no
+              longer need wp-forms.
+            </p>
+            <p>Can you please refund today's charge.</p>
+            <p>
+              Thank you,<br />
+              Claudia Knight<br />
+              Chief Financial Manager<br />
+              StoryFair LLC
+            </p>
+          </td>
+          <td>
+            <p>Hey Sean!,</p>
+            <p>Thanks for reaching out and submitting your refund request.</p>
+            <p>
+              To get things going, please fill out the following form
+              https://wpforms.com/refund-survey/ so that the refund process can
+              be initiated by our billing team.
+            </p>
+            <p>
+              Thank you for taking the time to fill out the form, it not only
+              helps you process your refund but goes a long way to help us learn
+              from your experience and improve WPForms.
+            </p>
+            <p>We appreciate your help! :)</p>
+          </td>
+          <td>
+            <p>Hi Sean ,</p>
+
+            <p>
+              I apologize for the follow-up and I wanted to add some more
+              details regarding your refund request.
+            </p>
+
+            <p>
+              As per our terms of service, renewals are not refundable but the
+              good news is, that I just talked to my manager and got approval to
+              make an exception for you and offer a refund with a 10% processing
+              fee. I hope that helps!
+            </p>
+
+            <p>
+              I've assigned this to our billing team so they can process a
+              partial refund for your renewal {$539.10}. We will also cancel
+              your subscription to ensure it doesn't auto-renew moving forward.
+              (Please note that our standard business hours are Monday - Friday,
+              9am - 5pm Eastern.)
+            </p>
+
+            <p>
+              If you ever decide to come back to us, we'd be more than happy to
+              help you every step of the way—whether it's setting up forms on
+              your website, or making a new purchase. Just let us know, and
+              we'll make sure you're up and running in no time.
+            </p>
+
+            <p>
+              We truly appreciate you giving us a try and hope to work with you
+              again in the future. If there's anything else you need, don't
+              hesitate to reach out!
+            </p>
+
+            <p>Warm regards,</p>
+          </td>
+          <td>payment</td>
+        </tr>
+        <tr>
+          <td>
+            We have asked this repeatedly and sent other support tickets. Our
+            plan expires Feb. 4 and we want to get it for the some price as last
+            year. It currently won't renew that way. Please advise how to get
+            the 50% discount again or we will simply cancel all together.
+          </td>
+          <td>
+            Hi there!,<br />
+            Thank you for contacting us!<br />
+            We don't normally offer any discounts for renewals. However, we'll
+            be happy to discuss your current sitatution and see how best we can
+            help. Would you mind sharing more details about what sets your
+            situation apart?<br />
+            I have also passed this on to our accounts specialist who will be
+            reaching out in a short while to assist you further.<br />
+            Thanks! :)
+          </td>
+          <td>
+            Hi Peter,<br /><br />
+
+            Thank you for contacting us and I apologize for any confusion.<br /><br />
+
+            Please kindly know that the 50% discount currently only applies to
+            the first year of a license subscription, and you can see our
+            discounted prices here: https://wpforms.com/pricing/. The license
+            renewals for subsequent years will take place at the full price of
+            the license level.<br /><br />
+
+            In case it helps to provide more clarification, we included this
+            information on the checkout page
+            (https://a.supportally.com/i/Jb4bLB) before the license purchase is
+            done.<br /><br />
+
+            We also have this information placed on the pricing page right under
+            the money-back guarantee section:
+            https://a.supportally.com/ZKc6iO<br /><br />
+
+            We don't normally offer any discounts for renewals. However, I've
+            made a special exception for you and applied a 50% discount on your
+            upcoming renewal. Your subscription will renew at a discounted price
+            for this renewal. No additional action is required from your end.<br /><br />
+
+            I hope this helps! Could you please let me know if you have any
+            questions?<br /><br />
+
+            Thanks! :)
+          </td>
+          <td>renewal discount</td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+
+    <hr />
+
+    <script>
+      async function fetchQuestionAndAnswer(cfid) {
+        const cloudRunUrl =
+          "https://us-central1-support-assist-384720.cloudfunctions.net/staging-feedback-get-qa-sav2-v2"; // Replace with your Cloud Run URL
+        try {
+          const response = await fetch(`${cloudRunUrl}?cfid=${cfid}`);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching question and answer:", error);
+          return null;
+        }
+      }
+
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      const skippedYesRadio = document.getElementById("skippedCorrectlyYes");
+      const skippedNoRadio = document.getElementById("skippedCorrectlyNo");
+      const correctYesRadio = document.getElementById("savedReplyRatingYes");
+      const correctNoRadio = document.getElementById("savedReplyRatingNo");
+      function updateCommentRequired() {
+        const commentBox = document.getElementById("comments");
+        const commentsContainer = document.getElementById("commentsContainer");
+        if (skippedYesRadio.checked && correctYesRadio.checked) {
+          commentBox.required = false;
+          commentsContainer.style.display = "none";
+        } else {
+          commentBox.required = true;
+          commentsContainer.style.display = "block";
+        }
+      }
+
+      skippedYesRadio.addEventListener("change", updateCommentRequired);
+      skippedNoRadio.addEventListener("change", updateCommentRequired);
+      correctYesRadio.addEventListener("change", updateCommentRequired);
+      correctNoRadio.addEventListener("change", updateCommentRequired);
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const cfid = getQueryParam("cfid");
+        const data = await fetchQuestionAndAnswer(cfid);
+        if (data) {
+          if (data.question) {
+            document.getElementById("question").innerHTML =
+              "<h2>Question: </h2>" + data.question;
+          }
+          if (data.response) {
+            document.getElementById("response").innerHTML =
+              "<h2>SA Intelligent Auto-Reply: </h2>" + data.response;
+          }
+        }
+      });
+
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const skipRating = document.querySelector(
+            'input[name="skipRating"]:checked'
+          ).value;
+          const savedReplyRating = document.querySelector(
+            'input[name="savedReplyRating"]:checked'
+          ).value;
+          const comments = document.getElementById("comments").value;
+          const cfid = getQueryParam("cfid");
+
+          const params = new URLSearchParams({
+            skipRating: skipRating,
+            savedReplyRating: savedReplyRating,
+            comments: comments,
+            cfid: cfid,
+          });
+
+          url = `https://us-central1-support-assist-384720.cloudfunctions.net/staging-skip-feedback-service-sav2-v2?${params.toString()}`;
+
+          try {
+            const response = await fetch(url, {
+              method: "GET",
+            });
+
+            if (response.ok) {
+              alert("Feedback submitted successfully!");
+            } else {
+              alert("Failed to submit feedback.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while submitting feedback.");
+          }
+        });
+    </script>
+  </body>
+</html>

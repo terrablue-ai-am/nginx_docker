@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Form</title>
+    <style>
+      /* Add custom styles for the textarea */
+      #comments {
+        width: 100%;
+        /* Full width */
+        height: 150px;
+        /* Height in pixels */
+        font-size: 16px;
+        /* Font size */
+      }
+
+      #commentsContainer {
+        display: none;
+        /* Initially hidden */
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Feedback Form</h1>
+    <form id="feedbackForm">
+      <label for="rating">
+        <h2>Rating:</h2> </label
+      ><br />
+      <input type="radio" id="helpful" name="rating" value="Helpful" required />
+      <label for="helpful"
+        >Helpful: The answer provided by the AI answers the ticket without any
+        edits. This is loosely equivalent to the Great Answer!</label
+      ><br />
+      <input
+        type="radio"
+        id="satisfactory"
+        name="rating"
+        value="Satisfactory"
+        required
+      />
+      <label for="satisfactory"
+        >Satisfactory: The answer provided by the AI answers the ticket
+        sufficiently, but may not answer it completely. This response is an
+        acceptable first-level response sent to the customer and any follow-up
+        question by the customer can be resolved.</label
+      ><br />
+      <input type="radio" id="harmful" name="rating" value="Harmful" required />
+      <label for="harmful"
+        >Harmful: The AI response requires substantial edits. It will have a
+        harmful effect on the product and potentially frustrate the
+        customer.</label
+      ><br /><br />
+
+      <div id="commentsContainer">
+        <label for="comments">Comments:</label><br />
+        <textarea
+          id="comments"
+          name="comments"
+          maxlength="16777215"
+          minlength="30"
+          required
+        ></textarea
+        ><br />
+      </div>
+
+      <input type="hidden" id="cfid" name="cfid" />
+      <button type="submit">Submit</button><br /><br />
+
+      <label id="question">Question:</label><br /><br />
+      <hr />
+      <label id="response">AI Response:</label><br /><br />
+    </form>
+
+    <script>
+      async function fetchQuestionAndAnswer(cfid) {
+        const cloudRunUrl =
+          "https://us-central1-support-assist-384720.cloudfunctions.net/staging-feedback-get-qa-sav2-v2"; // Replace with your Cloud Run URL
+        try {
+          const response = await fetch(`${cloudRunUrl}?cfid=${cfid}`);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching question and answer:", error);
+          return null;
+        }
+      }
+
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      function toggleCommentsVisibility() {
+        const rating = document.querySelector(
+          'input[name="rating"]:checked'
+        ).value;
+        const commentsContainer = document.getElementById("commentsContainer");
+        const commentsField = document.getElementById("comments");
+
+        if (rating === "Helpful") {
+          commentsContainer.style.display = "none";
+          commentsField.required = false;
+        } else {
+          commentsContainer.style.display = "block";
+          commentsField.required = true;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const cfid = getQueryParam("cfid");
+        const data = await fetchQuestionAndAnswer(cfid);
+        if (data) {
+          if (data.question) {
+            document.getElementById("question").innerHTML =
+              "<h2>Question: </h2>" + data.question;
+          }
+          if (data.response) {
+            document.getElementById("response").innerHTML =
+              "<h2>AI Response: </h2>" + data.response;
+          }
+        }
+
+        const ratingButtons = document.querySelectorAll('input[name="rating"]');
+        ratingButtons.forEach((button) =>
+          button.addEventListener("change", toggleCommentsVisibility)
+        );
+      });
+
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const helpfulness = document.querySelector(
+            'input[name="rating"]:checked'
+          ).value;
+          const comments = document.getElementById("comments").value;
+          const cfid = getQueryParam("cfid");
+
+          const params = new URLSearchParams({
+            helpfulness: helpfulness,
+            comments: comments,
+            cfid: cfid,
+          });
+
+          url = `https://us-central1-support-assist-384720.cloudfunctions.net/staging-feedback-service-sav2-v2?${params.toString()}`;
+
+          try {
+            const response = await fetch(url, {
+              method: "GET",
+            });
+
+            if (response.ok) {
+              alert("Feedback submitted successfully!");
+            } else {
+              alert("Failed to submit feedback.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while submitting feedback.");
+          }
+        });
+    </script>
+  </body>
+</html>
